@@ -10,6 +10,7 @@
 package vista;
 
 import modelo.Cliente;
+import modelo.Conexion;
 
 public class frm_cliente extends javax.swing.JFrame {
   // Declaracion global de un objeto de tipo "Cliente"
@@ -47,6 +48,7 @@ public class frm_cliente extends javax.swing.JFrame {
     txt_fn = new javax.swing.JTextField();
     btn_aceptar = new javax.swing.JButton();
     btn_modificar = new javax.swing.JButton();
+    jButton1 = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +98,17 @@ public class frm_cliente extends javax.swing.JFrame {
       }
     });
 
+    jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    jButton1.setText("Probar");
+    jButton1.setMaximumSize(new java.awt.Dimension(79, 27));
+    jButton1.setMinimumSize(new java.awt.Dimension(79, 27));
+    jButton1.setPreferredSize(new java.awt.Dimension(79, 27));
+    jButton1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1ActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -125,7 +138,9 @@ public class frm_cliente extends javax.swing.JFrame {
                 .addComponent(btn_modificar))))
           .addGroup(layout.createSequentialGroup()
             .addGap(211, 211, 211)
-            .addComponent(btn_aceptar)))
+            .addComponent(btn_aceptar)
+            .addGap(48, 48, 48)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(106, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -157,7 +172,9 @@ public class frm_cliente extends javax.swing.JFrame {
           .addComponent(lbl_fn)
           .addComponent(txt_fn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(45, 45, 45)
-        .addComponent(btn_aceptar)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(btn_aceptar)
+          .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addContainerGap(45, Short.MAX_VALUE))
     );
 
@@ -183,6 +200,11 @@ public class frm_cliente extends javax.swing.JFrame {
         obj_cliente.setNit(txt_nit.getText());
         obj_cliente.agregar();
     }//GEN-LAST:event_btn_modificarActionPerformed
+
+  private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    Conexion cn = new Conexion();
+    cn.abrir_conexion();
+  }//GEN-LAST:event_jButton1ActionPerformed
 
   /**
    * @param args the command line arguments
@@ -223,6 +245,7 @@ public class frm_cliente extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btn_aceptar;
   private javax.swing.JButton btn_modificar;
+  private javax.swing.JButton jButton1;
   private javax.swing.JLabel lbl_apellidos;
   private javax.swing.JLabel lbl_direccion;
   private javax.swing.JLabel lbl_fn;
