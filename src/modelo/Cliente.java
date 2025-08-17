@@ -9,8 +9,12 @@
 
 package modelo;
 
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+
 public class Cliente extends Persona {
     private String nit;
+    Conexion cn;
 
     public Cliente() {}
 
@@ -29,12 +33,28 @@ public class Cliente extends Persona {
     
     @Override
     public void agregar() {
-        System.out.println("Nit: " + this.getNit());
-        System.out.println("Nombres: " + this.getNombres());
-        System.out.println("Apellidos: " + this.getApellidos());
-        System.out.println("Direccion: " + this.getDireccion());
-        System.out.println("Telefono: " + this.getTelefono());
-        System.out.println("Fecha Nacimiento: " + this.getFecha_nacimiento());
-        System.out.println("_______________________________________________");
+      try {
+        PreparedStatement parametro;
+        cn = new Conexion();
+        
+        String campos = "(nit, nombres, apellidos, direccion, telefono, fecha_nacimiento)";
+        String query = "INSERT INTO clientes" + campos + " VALUES(?, ?, ?, ?, ?, ?);";
+        
+        cn.abrir_conexion();
+        parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
+        parametro.setString(1, this.getNit());
+        parametro.setString(2, this.getNombres());
+        parametro.setString(3, this.getApellidos());
+        parametro.setString(4, this.getDireccion());
+        parametro.setString(5, this.getTelefono());
+        parametro.setString(6, this.getFecha_nacimiento());
+        
+        int ejecutar = parametro.executeUpdate();
+        cn.cerrar_conexion();
+        JOptionPane.showMessageDialog(null, Integer.toString(ejecutar) + " Registro Ingresado", "Agregar", JOptionPane.INFORMATION_MESSAGE);
+      }
+      catch (Exception ex) {
+        System.out.println("Error..." + ex.getMessage());
+      }
     }
 }
