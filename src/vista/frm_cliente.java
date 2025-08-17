@@ -23,6 +23,7 @@ public class frm_cliente extends javax.swing.JFrame {
       initComponents();
       // Instanciar el objeto
       obj_cliente = new Cliente();
+      tbl_cliente.setModel(obj_cliente.leer());
   }
 
     /**
@@ -48,6 +49,8 @@ public class frm_cliente extends javax.swing.JFrame {
     txt_fn = new javax.swing.JTextField();
     btn_aceptar = new javax.swing.JButton();
     btn_modificar = new javax.swing.JButton();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    tbl_cliente = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,37 +100,49 @@ public class frm_cliente extends javax.swing.JFrame {
       }
     });
 
+    tbl_cliente.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    jScrollPane1.setViewportView(tbl_cliente);
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
+        .addGap(30, 30, 30)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lbl_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(lbl_nombres)
+          .addComponent(lbl_apellidos)
+          .addComponent(lbl_direccion)
+          .addComponent(lbl_telefono)
+          .addComponent(lbl_fn))
+        .addGap(52, 52, 52)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addGap(30, 30, 30)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(lbl_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(lbl_nombres)
-              .addComponent(lbl_apellidos)
-              .addComponent(lbl_direccion)
-              .addComponent(lbl_telefono)
-              .addComponent(lbl_fn))
-            .addGap(52, 52, 52)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(txt_nombres)
-                .addComponent(txt_apellidos)
-                .addComponent(txt_direccion)
-                .addComponent(txt_telefono)
-                .addComponent(txt_fn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(btn_modificar))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(txt_nombres)
+              .addComponent(txt_apellidos)
+              .addComponent(txt_direccion)
+              .addComponent(txt_telefono)
+              .addComponent(txt_fn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+            .addGap(35, 35, 35)
+            .addComponent(btn_aceptar))
           .addGroup(layout.createSequentialGroup()
-            .addGap(211, 211, 211)
-            .addComponent(btn_aceptar)))
-        .addContainerGap(106, Short.MAX_VALUE))
+            .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(33, 33, 33)
+            .addComponent(btn_modificar)))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,10 +171,10 @@ public class frm_cliente extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(lbl_fn)
-          .addComponent(txt_fn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(45, 45, 45)
-        .addComponent(btn_aceptar)
-        .addContainerGap(45, Short.MAX_VALUE))
+          .addComponent(txt_fn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(btn_aceptar))
+        .addGap(58, 58, 58)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
     );
 
     pack();
@@ -177,6 +192,7 @@ public class frm_cliente extends javax.swing.JFrame {
         );
         
         obj_cliente.agregar();
+        tbl_cliente.setModel(obj_cliente.leer());
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
@@ -224,12 +240,14 @@ public class frm_cliente extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btn_aceptar;
   private javax.swing.JButton btn_modificar;
+  private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JLabel lbl_apellidos;
   private javax.swing.JLabel lbl_direccion;
   private javax.swing.JLabel lbl_fn;
   private javax.swing.JLabel lbl_nit;
   private javax.swing.JLabel lbl_nombres;
   private javax.swing.JLabel lbl_telefono;
+  private javax.swing.JTable tbl_cliente;
   private javax.swing.JTextField txt_apellidos;
   private javax.swing.JTextField txt_direccion;
   private javax.swing.JTextField txt_fn;

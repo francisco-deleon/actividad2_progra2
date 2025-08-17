@@ -9,8 +9,10 @@
 
 package modelo;
 
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Cliente extends Persona {
     private String nit;
@@ -56,5 +58,41 @@ public class Cliente extends Persona {
       catch (Exception ex) {
         System.out.println("Error..." + ex.getMessage());
       }
+    }
+    
+    public DefaultTableModel leer() {
+      DefaultTableModel tabla = new DefaultTableModel();
+      
+      try {
+        cn = new Conexion();
+        cn.abrir_conexion();
+        
+        String campos = "id_cliente AS id, nit, nombres, apellidos, direccion, telefono, fecha_nacimiento";
+        String query = "SELECT " + campos + " FROM clientes;";
+        ResultSet consulta = cn.conexionBD.createStatement().executeQuery(query);
+        
+        String encabezados[] = {"Id", "Nit", "Nombres", "Apellidos", "Direccion", "Telefono", "Nacimiento"};
+        tabla.setColumnIdentifiers(encabezados);
+        
+        String datos[] = new String[7];
+        
+        while(consulta.next()) {
+          datos[0] = consulta.getString("id");
+          datos[1] = consulta.getString("nit");
+          datos[2] = consulta.getString("nombres");
+          datos[3] = consulta.getString("apellidos");
+          datos[4] = consulta.getString("direccion");
+          datos[5] = consulta.getString("telefono");
+          datos[6] = consulta.getString("fecha_nacimiento");
+          tabla.addRow(datos);
+        }
+        
+        cn.cerrar_conexion();
+      }
+      catch (Exception ex) {
+        System.out.println("Error: " + ex.getMessage());
+      }
+      
+      return tabla;
     }
 }
