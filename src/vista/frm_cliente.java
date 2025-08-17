@@ -25,6 +25,18 @@ public class frm_cliente extends javax.swing.JFrame {
       obj_cliente = new Cliente();
       tbl_cliente.setModel(obj_cliente.leer());
   }
+  
+  public void selec_datos() {
+    int fila = tbl_cliente.getSelectedRow();
+    
+    lbl_id.setText(tbl_cliente.getValueAt(fila, 0).toString());
+    txt_nit.setText(tbl_cliente.getValueAt(fila, 1).toString());
+    txt_nombres.setText(tbl_cliente.getValueAt(fila, 2).toString());
+    txt_apellidos.setText(tbl_cliente.getValueAt(fila, 3).toString());
+    txt_direccion.setText(tbl_cliente.getValueAt(fila, 4).toString());
+    txt_telefono.setText(tbl_cliente.getValueAt(fila, 5).toString());
+    txt_fn.setText(tbl_cliente.getValueAt(fila, 6).toString());
+  }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,9 +60,12 @@ public class frm_cliente extends javax.swing.JFrame {
     lbl_fn = new javax.swing.JLabel();
     txt_fn = new javax.swing.JTextField();
     btn_aceptar = new javax.swing.JButton();
-    btn_modificar = new javax.swing.JButton();
+    btn_actualizar = new javax.swing.JButton();
     jScrollPane1 = new javax.swing.JScrollPane();
     tbl_cliente = new javax.swing.JTable();
+    lbl_ID = new javax.swing.JLabel();
+    lbl_id = new javax.swing.JLabel();
+    btn_eliminar = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,18 +100,18 @@ public class frm_cliente extends javax.swing.JFrame {
     txt_fn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
     btn_aceptar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    btn_aceptar.setText("Aceptar");
+    btn_aceptar.setText("Agregar");
     btn_aceptar.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         btn_aceptarActionPerformed(evt);
       }
     });
 
-    btn_modificar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    btn_modificar.setText("Modificar");
-    btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+    btn_actualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    btn_actualizar.setText("Actualizar");
+    btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btn_modificarActionPerformed(evt);
+        btn_actualizarActionPerformed(evt);
       }
     });
 
@@ -111,12 +126,36 @@ public class frm_cliente extends javax.swing.JFrame {
         "Title 1", "Title 2", "Title 3", "Title 4"
       }
     ));
+    tbl_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tbl_clienteMouseClicked(evt);
+      }
+    });
+    tbl_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        tbl_clienteKeyReleased(evt);
+      }
+    });
     jScrollPane1.setViewportView(tbl_cliente);
+
+    lbl_ID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    lbl_ID.setText("Id");
+
+    lbl_id.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+    btn_eliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    btn_eliminar.setText("Eliminar");
+    btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn_eliminarActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(jScrollPane1)
       .addGroup(layout.createSequentialGroup()
         .addGap(30, 30, 30)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,9 +164,11 @@ public class frm_cliente extends javax.swing.JFrame {
           .addComponent(lbl_apellidos)
           .addComponent(lbl_direccion)
           .addComponent(lbl_telefono)
-          .addComponent(lbl_fn))
+          .addComponent(lbl_fn)
+          .addComponent(lbl_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(52, 52, 52)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(txt_nombres)
@@ -136,22 +177,25 @@ public class frm_cliente extends javax.swing.JFrame {
               .addComponent(txt_telefono)
               .addComponent(txt_fn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
             .addGap(35, 35, 35)
-            .addComponent(btn_aceptar))
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(33, 33, 33)
-            .addComponent(btn_modificar)))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-      .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
+            .addComponent(btn_aceptar)
+            .addGap(18, 18, 18)
+            .addComponent(btn_actualizar)
+            .addGap(18, 18, 18)
+            .addComponent(btn_eliminar))
+          .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(90, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(31, 31, 31)
+        .addGap(33, 33, 33)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(lbl_ID)
+          .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(lbl_nit)
-          .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btn_modificar))
+          .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(lbl_nombres)
@@ -172,34 +216,56 @@ public class frm_cliente extends javax.swing.JFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(lbl_fn)
           .addComponent(txt_fn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btn_aceptar))
-        .addGap(58, 58, 58)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
+          .addComponent(btn_aceptar)
+          .addComponent(btn_actualizar)
+          .addComponent(btn_eliminar))
+        .addGap(18, 18, 18)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-        // Enviar parametros del Constructor (valores de los elementos en el formulario)
-        obj_cliente = new Cliente(
-                txt_nit.getText(),
-                txt_nombres.getText(),
-                txt_apellidos.getText(),
-                txt_direccion.getText(),
-                txt_telefono.getText(),
-                txt_fn.getText()
-        );
+      // Enviar parametros del Constructor (valores de los elementos en el formulario)
+      obj_cliente = new Cliente(0,txt_nit.getText(),txt_nombres.getText(),txt_apellidos.getText(),txt_direccion.getText(),txt_telefono.getText(),txt_fn.getText());
         
-        obj_cliente.agregar();
-        tbl_cliente.setModel(obj_cliente.leer());
+      obj_cliente.agregar();
+      tbl_cliente.setModel(obj_cliente.leer());
     }//GEN-LAST:event_btn_aceptarActionPerformed
 
-    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
-        // Invocar el objeto desde el evento del boton "Modificar"
-        obj_cliente.setNit(txt_nit.getText());
-        obj_cliente.agregar();
-    }//GEN-LAST:event_btn_modificarActionPerformed
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+      // Modificar el objeto con el boton "Actualizar"
+      obj_cliente = new Cliente(Integer.valueOf(lbl_id.getText()),txt_nit.getText(),txt_nombres.getText(),txt_apellidos.getText(),txt_direccion.getText(),txt_telefono.getText(),txt_fn.getText());
+        
+      obj_cliente.actualizar();
+      tbl_cliente.setModel(obj_cliente.leer());
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+  private void tbl_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_clienteMouseClicked
+    selec_datos();
+  }//GEN-LAST:event_tbl_clienteMouseClicked
+
+  private void tbl_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_clienteKeyReleased
+    selec_datos();
+  }//GEN-LAST:event_tbl_clienteKeyReleased
+
+  private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+    obj_cliente = new Cliente();
+    
+    obj_cliente.setId(Integer.valueOf(lbl_id.getText()));
+    obj_cliente.eliminar();
+    tbl_cliente.setModel(obj_cliente.leer());
+    
+    // Limpiar campos despues de eliminar
+    lbl_id.setText(null);
+    txt_nit.setText(null);
+    txt_nombres.setText(null);
+    txt_apellidos.setText(null);
+    txt_direccion.setText(null);
+    txt_telefono.setText(null);
+    txt_fn.setText(null);
+  }//GEN-LAST:event_btn_eliminarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -239,11 +305,14 @@ public class frm_cliente extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btn_aceptar;
-  private javax.swing.JButton btn_modificar;
+  private javax.swing.JButton btn_actualizar;
+  private javax.swing.JButton btn_eliminar;
   private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JLabel lbl_ID;
   private javax.swing.JLabel lbl_apellidos;
   private javax.swing.JLabel lbl_direccion;
   private javax.swing.JLabel lbl_fn;
+  private javax.swing.JLabel lbl_id;
   private javax.swing.JLabel lbl_nit;
   private javax.swing.JLabel lbl_nombres;
   private javax.swing.JLabel lbl_telefono;

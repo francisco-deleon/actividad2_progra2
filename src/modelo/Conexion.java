@@ -30,8 +30,8 @@ public class Conexion {
       Class.forName(DRIVER);
       conexionBD = DriverManager.getConnection(URL, USUARIO, CLAVE);
       
-      JOptionPane.showMessageDialog(null, "Conexion Exitosa...", "Exito", JOptionPane.INFORMATION_MESSAGE);
-      System.out.println("Conexion Exitosa...");
+      //JOptionPane.showMessageDialog(null, "Conexion Exitosa...", "Exito", JOptionPane.INFORMATION_MESSAGE);
+      //System.out.println("Conexion Exitosa...");
     }
     catch(ClassNotFoundException | SQLException ex) {
       System.out.println("Error" + ex.getMessage());

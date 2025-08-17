@@ -16,12 +16,14 @@ import java.sql.ResultSet;
 
 public class Cliente extends Persona {
     private String nit;
+    private int id;
     Conexion cn;
 
     public Cliente() {}
 
-    public Cliente(String nit, String nombres, String apellidos, String direccion, String telefono, String fecha_nacimiento) {
+    public Cliente(int id, String nit, String nombres, String apellidos, String direccion, String telefono, String fecha_nacimiento) {
         super(nombres, apellidos, direccion, telefono, fecha_nacimiento);
+        this.id = id;
         this.nit = nit;
     }
 
@@ -31,6 +33,14 @@ public class Cliente extends Persona {
 
     public void setNit(String nit) {
         this.nit = nit;
+    }
+    
+    public int getId() {
+      return id;
+    }
+    
+    public void setId(int id) {
+      this.id = id;
     }
     
     @Override
@@ -54,6 +64,55 @@ public class Cliente extends Persona {
         int ejecutar = parametro.executeUpdate();
         cn.cerrar_conexion();
         JOptionPane.showMessageDialog(null, Integer.toString(ejecutar) + " Registro Ingresado", "Agregar", JOptionPane.INFORMATION_MESSAGE);
+      }
+      catch (Exception ex) {
+        System.out.println("Error..." + ex.getMessage());
+      }
+    }
+    
+    @Override
+    public void actualizar() {
+      try {
+        PreparedStatement parametro;
+        cn = new Conexion();
+        
+        String campos = "nit = ?, nombres = ?, apellidos = ?, direccion = ?, telefono = ?, fecha_nacimiento = ?";
+        String query = "UPDATE clientes SET " + campos + " WHERE id_cliente = ?;";
+        
+        cn.abrir_conexion();
+        parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
+        parametro.setString(1, this.getNit());
+        parametro.setString(2, this.getNombres());
+        parametro.setString(3, this.getApellidos());
+        parametro.setString(4, this.getDireccion());
+        parametro.setString(5, this.getTelefono());
+        parametro.setString(6, this.getFecha_nacimiento());
+        parametro.setInt(7, this.getId());
+        
+        int ejecutar = parametro.executeUpdate();
+        cn.cerrar_conexion();
+        JOptionPane.showMessageDialog(null, Integer.toString(ejecutar) + " Registro Actualizado", "Actualizar", JOptionPane.INFORMATION_MESSAGE);
+      }
+      catch (Exception ex) {
+        System.out.println("Error..." + ex.getMessage());
+      }
+    }
+    
+    @Override
+    public void eliminar() {
+      try {
+        PreparedStatement parametro;
+        cn = new Conexion();
+
+        String query = "DELETE FROM clientes WHERE id_cliente = ?;";
+        
+        cn.abrir_conexion();
+        parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
+        parametro.setInt(1, this.getId());
+        
+        int ejecutar = parametro.executeUpdate();
+        cn.cerrar_conexion();
+        JOptionPane.showMessageDialog(null, Integer.toString(ejecutar) + " Registro Eliminado", "Eliminar", JOptionPane.INFORMATION_MESSAGE);
       }
       catch (Exception ex) {
         System.out.println("Error..." + ex.getMessage());
